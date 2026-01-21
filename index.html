@@ -1,223 +1,325 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>MINE TECHNOLOGY - Highwall Safety Monitor</title>
+<meta charset="UTF-8">
+<title>MINE TECHNOLOGY - Highwall Safety Monitor</title>
 
-  <style>
-    body{
-      font-family: Arial;
-      background:#f4f7f6;
-      margin:0;
-      padding:20px;
-    }
+<style>
+body{
+  font-family: Arial;
+  background:#f4f7f6;
+  margin:0;
+  padding:20px;
+}
 
-    /* ================= HEADER ================= */
-    .header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      background:linear-gradient(90deg,#1b8f3a,#0a4f70,#f39c12);
-      padding:12px 20px;
-      border-radius:10px;
-      color:white;
-      margin-bottom:15px;
-      box-shadow:0 6px 20px rgba(0,0,0,.25);
-    }
+/* ================= HEADER ================= */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(90deg,#1b8f3a,#0a4f70,#f39c12);
+  padding:12px 20px;
+  border-radius:10px;
+  color:white;
+  margin-bottom:15px;
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
+}
+.header img{height:50px;}
+.header .title{text-align:center;}
+.header h2{margin:0;font-size:22px;}
+.header span{font-size:13px;opacity:.9;}
 
-    .header img{
-      height:50px;
-    }
+/* ================= APP ================= */
+#app{
+  display:none;
+  background:#fff;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 6px 20px rgba(0,0,0,.15);
+}
 
-    .header .title{
-      text-align:center;
-    }
+canvas{
+  border:3px solid #0a4f70;
+  cursor:crosshair;
+  margin-top:10px;
+  max-width:100%;
+}
 
-    .header h2{
-      margin:0;
-      font-size:22px;
-    }
+button{
+  background:#1b8f3a;
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+  margin-right:6px;
+}
+button:hover{background:#f39c12;}
 
-    .header span{
-      font-size:13px;
-      opacity:.9;
-    }
-
-    /* ================= APP PANEL ================= */
-    #app{
-      display:none;
-      background:#fff;
-      padding:15px;
-      border-radius:10px;
-      box-shadow:0 6px 20px rgba(0,0,0,.15);
-    }
-
-    canvas{
-      border:3px solid #0a4f70;
-      cursor:crosshair;
-      margin-top:10px;
-      max-width:100%;
-    }
-
-    button{
-      background:#1b8f3a;
-      color:#fff;
-      border:none;
-      padding:8px 14px;
-      border-radius:6px;
-      cursor:pointer;
-      font-weight:bold;
-      margin-right:6px;
-    }
-
-    button:hover{
-      background:#f39c12;
-    }
-
-    /* ================= LOGIN ================= */
-    #loginBox{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.65);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:9999;
-    }
-
-    #loginForm{
-      background:#fff;
-      padding:25px;
-      width:320px;
-      border-radius:10px;
-      text-align:center;
-      box-shadow:0 10px 30px rgba(0,0,0,.4);
-    }
-
-    #loginForm h3{
-      margin-top:0;
-      color:#1b8f3a;
-    }
-
-    #loginForm input{
-      width:100%;
-      padding:9px;
-      margin-bottom:10px;
-    }
-
-    #loginForm button{
-      width:100%;
-    }
-
-    #error{
-      color:red;
-      font-size:12px;
-    }
-  </style>
+/* ================= LOGIN ================= */
+#loginBox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+#loginForm{
+  background:#fff;
+  padding:25px;
+  width:320px;
+  border-radius:10px;
+  text-align:center;
+}
+#error{color:red;font-size:12px;}
+</style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN SCREEN ================= -->
+<!-- LOGIN -->
 <div id="loginBox">
   <div id="loginForm">
     <h3>MINE TECHNOLOGY</h3>
-    <input type="text" id="user" placeholder="Username">
-    <input type="password" id="pass" placeholder="Password">
+    <input type="text" id="user" placeholder="Username"><br><br>
+    <input type="password" id="pass" placeholder="Password"><br><br>
     <button onclick="login()">Login</button>
     <p id="error"></p>
   </div>
 </div>
 
-<!-- ================= MAIN APP ================= -->
+<!-- APP -->
 <div id="app">
 
-  <!-- HEADER -->
-  <div class="header">
-    <img src="WhatsApp Image 2026-01-21 at 11.10.58.jpeg" alt="BUMA">
-    <div class="title">
-      <h2>MINE TECHNOLOGY</h2>
-      <span>Highwall Safety Monitor</span>
-    </div>
-    <img src="WhatsApp Image 2026-01-21 at 11.12.06.jpeg" alt="Mine Tech">
+<div class="header">
+  <img src="WhatsApp Image 2026-01-21 at 11.10.58.jpeg">
+  <div class="title">
+    <h2>MINE TECHNOLOGY</h2>
+    <span>Highwall Safety Monitor</span>
   </div>
+  <img src="WhatsApp Image 2026-01-21 at 11.12.06.jpeg">
+</div>
 
-  <h3>Ukur Tinggi & Lebar (Referensi Meter)</h3>
+<h3>Ukur Tinggi & Lebar (Referensi Meter)</h3>
 
-  <input type="file" id="upload" accept="image/*"><br><br>
+<input type="file" id="upload" accept="image/*"><br><br>
 
-  <label>Referensi (meter): </label>
-  <input type="number" id="refMeter" value="1" step="0.01">
+<label>Referensi (meter): </label>
+<input type="number" id="refMeter" value="1" step="0.01">
 
-  <select id="orientation">
-    <option value="vertical">Vertikal</option>
-    <option value="horizontal">Horizontal</option>
-    <option value="free">Bebas</option>
-  </select>
+<select id="orientation">
+  <option value="vertical">Vertikal</option>
+  <option value="horizontal">Horizontal</option>
+  <option value="free">Bebas</option>
+</select>
 
-  <button onclick="setMode('kalibrasi')">Kalibrasi</button>
-  <button onclick="setMode('ukur')">Ukur</button>
-  <button onclick="resetAll()">Reset Semua</button>
-  <button onclick="downloadPDF()">Download PDF</button>
+<button onclick="setMode('kalibrasi')">Kalibrasi</button>
+<button onclick="setMode('ukur')">Ukur</button>
+<button onclick="resetAll()">Reset Semua</button>
+<button onclick="downloadPDF()">Download PDF</button>
 
-  <br><br>
+<br><br>
 
-  <label>Inspektor:</label>
-  <input type="text" id="inspector" value="Hendra Toban">
+<label>Inspektor:</label>
+<input type="text" id="inspector" value="Hendra Toban">
 
-  <label>Front:</label>
-  <input type="text" id="pit" placeholder="Front / Lokasi">
+<label>Front:</label>
+<input type="text" id="pit">
 
-  <br><br>
+<br><br>
 
-  <canvas id="canvas"></canvas>
-  <p id="info"></p>
+<canvas id="canvas"></canvas>
+<p id="info"></p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
-/* ================= LOGIN LOGIC (ASLI – TIDAK DIUBAH) ================= */
-const USERNAME = "MARKO";
-const PASSWORD = "MARKO01";
-
+/* ================= LOGIN ================= */
+const USERNAME="MARKO", PASSWORD="MARKO01";
 function login(){
-  const u = document.getElementById("user").value;
-  const p = document.getElementById("pass").value;
+  if(user.value===USERNAME && pass.value===PASSWORD){
+    loginBox.style.display="none";
+    app.style.display="block";
+  }else error.innerText="Username atau password salah";
+}
 
-  if(u === USERNAME && p === PASSWORD){
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("app").style.display = "block";
+/* ================= SCRIPT PENGUKURAN ASLI (UTUH) ================= */
+const COMPANY="PT. Bukit Makmur Mandiri Utama";
+const SITE="Lati Mine Operation";
+const MIN=4, MAX=8;
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+const upload=document.getElementById("upload");
+const orient=document.getElementById("orientation");
+const refMeter=document.getElementById("refMeter");
+const info=document.getElementById("info");
+
+let img=new Image();
+let mode="kalibrasi";
+let pixelPerMeter=null;
+let tempPoints=[];
+let measurements=[];
+let undoStack=[];
+let dragPoint=null;
+let referenceLine=null;
+const R=6;
+
+/* ================= FIX UPLOAD GAMBAR (TAMBAHAN SAJA) ================= */
+upload.addEventListener("change",function(e){
+  const file=e.target.files[0];
+  if(!file) return;
+
+  const reader=new FileReader();
+  reader.onload=function(){
+    img.onload=function(){
+      canvas.width=img.width;
+      canvas.height=img.height;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(img,0,0);
+    };
+    img.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ================= MOUSE EVENT (ASLI) ================= */
+canvas.addEventListener("mousedown",e=>{
+  if(e.button===2) return;
+  const m=mouse(e);
+
+  [...measurements,referenceLine].forEach(o=>{
+    if(!o) return;
+    if(near(m,o.p1)) dragPoint=o.p1;
+    if(near(m,o.p2)) dragPoint=o.p2;
+  });
+
+  if(!dragPoint && img.src){
+    let x=m.x,y=m.y;
+    if(tempPoints.length===1){
+      const p=tempPoints[0];
+      if(orient.value==="vertical") x=p.x;
+      if(orient.value==="horizontal") y=p.y;
+    }
+    tempPoints.push({x,y});
+    if(tempPoints.length===2){
+      process(tempPoints[0],tempPoints[1]);
+      tempPoints=[];
+    }
+    redraw();
+  }
+});
+
+canvas.addEventListener("mousemove",e=>{
+  if(dragPoint){
+    const m=mouse(e);
+    if(orient.value==="vertical") dragPoint.y=m.y;
+    else if(orient.value==="horizontal") dragPoint.x=m.x;
+    else{dragPoint.x=m.x;dragPoint.y=m.y;}
+    redraw();
+  }
+});
+canvas.addEventListener("mouseup",()=>dragPoint=null);
+
+canvas.addEventListener("contextmenu",e=>{
+  e.preventDefault();
+  const m=mouse(e);
+  undoStack.push(JSON.stringify({measurements,referenceLine}));
+  measurements=measurements.filter(o=>!near(m,o.p1)&&!near(m,o.p2));
+  if(referenceLine&&(near(m,referenceLine.p1)||near(m,referenceLine.p2))){
+    referenceLine=null;pixelPerMeter=null;info.innerHTML="Referensi dihapus";
+  }
+  redraw();
+});
+
+/* ================= LOGIC ASLI ================= */
+function process(p1,p2){
+  const px=dist(p1,p2);
+  if(mode==="kalibrasi"){
+    pixelPerMeter=px/refMeter.value;
+    referenceLine={p1,p2};
+    info.innerHTML=`Skala: <b>${pixelPerMeter.toFixed(2)} px/m</b>`;
   }else{
-    document.getElementById("error").innerText = "Username atau password salah";
+    undoStack.push(JSON.stringify({measurements,referenceLine}));
+    measurements.push({p1,p2});
   }
 }
 
-/* ================= APLIKASI ASLI (TETAP) ================= */
-const COMPANY = "PT. Bukit Makmur Mandiri Utama";
-const SITE = "Lati Mine Operation";
-const MIN = 4, MAX = 8;
+function redraw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(img.src) ctx.drawImage(img,0,0);
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const upload = document.getElementById("upload");
-const orient = document.getElementById("orientation");
-const refMeter = document.getElementById("refMeter");
-const info = document.getElementById("info");
+  if(referenceLine){
+    drawLine(referenceLine.p1,referenceLine.p2,`${refMeter.value} m`,"green","rgba(255,255,255,.7)");
+  }
 
-let img = new Image();
-let mode = "kalibrasi";
-let pixelPerMeter = null;
-let tempPoints = [];
-let measurements = [];
-let undoStack = [];
-let dragPoint = null;
-let referenceLine = null;
-const R = 6;
+  measurements.forEach(m=>{
+    const meter=dist(m.p1,m.p2)/pixelPerMeter;
+    const deg=Math.atan2(Math.abs(m.p2.y-m.p1.y),Math.abs(m.p2.x-m.p1.x))*180/Math.PI;
+    const danger=(meter<MIN||meter>MAX);
+    drawLine(
+      m.p1,m.p2,
+      `${meter.toFixed(2)} m | ${deg.toFixed(1)}°`,
+      danger?"red":"blue",
+      danger?"rgba(255,0,0,.5)":"rgba(255,255,0,.7)"
+    );
+  });
+}
 
-/* ===== DI SINI ANDA TEMPEL SCRIPT CANVAS & PDF ASLI ANDA ===== */
-/* (mouse event, draw, ukur, warna danger, export PDF, dll) */
+function drawLine(a,b,text,lineColor,bg){
+  ctx.strokeStyle=lineColor;
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.moveTo(a.x,a.y);
+  ctx.lineTo(b.x,b.y);
+  ctx.stroke();
+  point(a.x,a.y); point(b.x,b.y);
+  const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+  ctx.font="12px Arial";
+  const w=ctx.measureText(text).width+10;
+  ctx.fillStyle=bg;
+  ctx.fillRect(mx-w/2,my-14,w,18);
+  ctx.fillStyle="black";
+  ctx.fillText(text,mx-w/2+5,my);
+}
 
+function point(x,y){
+  ctx.fillStyle="red";
+  ctx.beginPath();
+  ctx.arc(x,y,R,0,Math.PI*2);
+  ctx.fill();
+}
+
+const mouse=e=>{
+  const r=canvas.getBoundingClientRect();
+  return{
+    x:(e.clientX-r.left)*(canvas.width/r.width),
+    y:(e.clientY-r.top)*(canvas.height/r.height)
+  };
+};
+const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+const near=(a,b)=>dist(a,b)<R*2;
+
+function setMode(m){mode=m;tempPoints=[];redraw();}
+function resetAll(){
+  pixelPerMeter=null;referenceLine=null;
+  measurements=[];undoStack=[];tempPoints=[];
+  info.innerHTML="";redraw();
+}
+
+/* ================= PDF (ASLI) ================= */
+function downloadPDF(){
+  const {jsPDF}=window.jspdf;
+  const pdf=new jsPDF();
+  pdf.text(COMPANY,10,10);
+  pdf.text(SITE,10,16);
+  pdf.addImage(canvas.toDataURL(),"PNG",10,30,180,100);
+  pdf.save("Highwall_Report.pdf");
+}
 </script>
 
 </body>
